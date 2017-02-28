@@ -1,0 +1,51 @@
+\documentclass{ctexart}
+
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{hyperref}
+\usepackage{subfigure}
+\usepackage{geometry}
+\usepackage{amsthm}
+\geometry{left=2.5cm,right=3.5cm,top=2.5cm,bottom=2.5cm}
+
+\begin{document}
+
+\newtheorem{mydef}{def}
+\newtheorem{myth}{Th}
+
+\begin{mydef}
+\begin{equation}\label{eq:1}
+  \end{equation}
+
+\begin{equation}\label{eq:2}
+  \forall i,{x_i}\left( {k + 1} \right) = {x_i}\left( t \right) + {{\rm I}_{\left\{ {k \in {T_i}} \right\}}}{U_i}\left( {{x^i}\left( t \right)} \right)
+\end{equation}
+
+$i$个worker上面的local数值
+\begin{equation}\label{eq:3}
+  x^{i}\left(k\right)
+\end{equation}
+
+第$k$步的全局$x$值：
+\begin{equation}\label{eq:4}
+  x\left(k\right)=\left(x_1(k),\cdots,x_n(k)\right)
+\end{equation}
+\end{mydef}
+
+\begin{mydef}
+\begin{equation}\label{eq:5}
+  {\left( {x_i^i\left( k \right)} \right)^'} = prox_{{g_i}}^\eta \left( {x_i^i\left( k \right) - \eta {\nabla _i}f\left( {{x^i}\left( k \right)} \right)} \right)
+\end{equation}
+    
+\begin{equation}\label{eq:6}
+    {\left( {{x_i}\left( k \right)} \right)^'} = prox_{{g_i}}^\eta \left( {{x_i}\left( k \right) - \eta {\nabla _i}f\left( {x\left( k \right)} \right)} \right)
+\end{equation}
+
+\begin{eqnarray}
+% \nonumber % Remove numbering (before each equation)
+  {U_i}\left( {{x^i}\left( k \right)} \right) &=& prox_{{g_i}}^\eta \left( {x_i^i\left( k \right) - \eta {\nabla _i}f\left( {{x^i}\left( k \right)} \right)} \right) - x_i^i\left( k \right) \nonumber\\
+   &=& {\left[ {x_i^i\left( k \right)} \right]^'} - x_i^i\left( k \right)
+\end{eqnarray}
+
+\end{mydef}
+\end{document}
