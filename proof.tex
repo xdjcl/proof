@@ -24,7 +24,7 @@
 
 \begin{mydef}
 \begin{equation}\label{eq:1}
-  \forall i,{x_i}\left( {k + 1} \right) = {x_i}\left( k \right) + {{\rm I}_{\left\{ {i \in {T_k}} \right\}}}{U_i}\left( {{x^i}\left( k \right)} \right)
+  \forall i,{x_i}\left( {k + 1} \right) = {x_i}\left( k \right) + {U_i}\left( {{x^i}\left( k \right)} \right)
 \end{equation}
 $T_k$表示第$k$步master接受更新的workers的集合。
 
@@ -131,9 +131,9 @@ For all $x,y \in R^n$, we have
 \newpage
 \section{证明}
 
-因为在$s$个时间之中，第$i$个组件必定能得到update，$\therefore \, \exists \delta\in \left[0,s\right],\; \text{sit.}\, x_i \left(k\right) = P_i \left(x^i \left(k-\delta \right)\right)$
+因为在$s$个时间之中，第$i$个组件必定能得到update，$\therefore \, \exists \, \delta\in \left[0,s\right],\; \text{sit.}\, x_i \left(k\right) = P_i \left(x^i \left(k-\delta \right)\right)$
 \begin{align}\label{eq:8}
-  M_F \left(x\left(k\right)\right)_i & = x_i \left(k\right) - \text{prox}_{g_i}^\eta \left\{x_i\left(k\right) - \eta \nabla_i f\left(x\left(k\right)\right)\right\} \nonumber\\
+  M_F \left(x\left(k\right)\right)_i & = x_i \left(k\right) - prox_{g_i}^\eta \left\{x_i\left(k\right) - \eta \nabla_i f\left(x\left(k\right)\right)\right\} \nonumber\\
   & = P_i \left(x^i \left(k-\delta\right)\right) - P_i \left(x\left(k\right)\right) \nonumber \\
   & = P_i \left(x^i \left(k-\delta\right)\right) - P_i \left(x\left(k-\delta\right)\right) - \left[P_i \left(x\left(k\right)\right) - P_i \left(x\left(k-\delta\right)\right) \right]
 \end{align}
@@ -145,8 +145,8 @@ For all $x,y \in R^n$, we have
 
 对于
 \begin{align}\label{eq:10}
-  P_i \left(x\right) & = \text{prox}_{g_i}^\eta \left\{ x_i - \eta \nabla_i f\left(x\right) \right\} \\
-  P_i \left(y\right) & = \text{prox}_{g_i}^\eta \left\{ y_i - \eta \nabla_i f\left(y\right) \right\}
+  P_i \left(x\right) & = prox_{g_i}^\eta \left\{ x_i - \eta \nabla_i f\left(x\right) \right\} \\
+  P_i \left(y\right) & = prox_{g_i}^\eta \left\{ y_i - \eta \nabla_i f\left(y\right) \right\}
 \end{align}
 
 现在来证明$\nabla P_i$的Lipschitz Continuous 性质。
@@ -172,7 +172,7 @@ $\because g_i$是凸函数，根据凸函数的单调性，
 
 带入\ref{eq:12}，可得
 \begin{equation}\label{eq:an}
-  \left[ -\frac{1}{\eta}\left( P_i \left(x\right) - x \right) - \nabla_i f\left(x\right) + \frac{1}{\eta} \left( P_i \left(y\right) - y \right) - \nabla_i f\left(y\right)\right]^{T}\left[ P_i \left(x\right) - P_i \left(y\right) \right] \geq 0
+  \left[ -\frac{1}{\eta}\left( P_i \left(x\right) - x \right) - \nabla_i f\left(x\right) + \frac{1}{\eta} \left( P_i \left(y\right) - y \right) + \nabla_i f\left(y\right)\right]^{T}\left[ P_i \left(x\right) - P_i \left(y\right) \right] \geq 0
 \end{equation}
 
 移项可得
@@ -211,70 +211,74 @@ As $ F\left(x\right) =f\left(x\right) + \sum\limits_{i=1}^{n} g_i \left( x_i \ri
 \left(k\right)\right) \right]
 \end{equation}
 
-For $ f\left( x_i \left( k+1 \right) \right) - f\left( x_i \left(k\right) \right) $, 根据 $ \nabla f $ Lipschitz Continuous Gradient
+对于 $ f\left( x_i \left( k+1 \right) \right) - f\left( x_i \left(k\right) \right) $, 根据 $ \nabla f $ Lipschitz Continuous Gradient
 \begin{equation}\label{eq:17}
   f\left(x\left(k+1\right)\right) - f\left(x\left(k\right)\right) \leq \nabla f\left(x\left(k\right)\right)^T \left( x\left(k+1\right) -x\left(k\right) \right) + \frac{L_f}{2}\left\| x\left(k+1\right) - x\left(k\right) \right\|_2^2
 \end{equation}
 
 若第$k$步，第$i$坐标得到更新，则
 \begin{equation}\label{eq:18}
-  x_i \left(k+1\right) = \text{prox}_{g_i}^\eta \! \left(x_i \left(k\right) - \eta \nabla_i f\left(x^i
+  x_i \left(k+1\right) = prox_{g_i}^\eta \! \left(x_i \left(k\right) - \eta \nabla_i f\left(x^i
   \left(k\right)\right) \right)
 \end{equation}
+
 否则
 \begin{equation}\label{eq:new}
-  $x_j \left(k+1\right) = x_j \left(k\right), \text{Then}\; g_j \left(x_j \left(k+1\right)\right)-g_j \left(x_j \left(k\right)\right)=0
+  x_j \left(k+1\right) = x_j \left(k\right),\quad \text{Then}\; g_j \left(x_j \left(k+1\right)\right)-g_j \left(x_j \left(k\right)\right)=0
 \end{equation}
 
-对于$\forall z \in \text{dom}\,g$ \begin{dmath}
+则对于$\forall z \in \text{dom}\,g$
+\begin{dmath}
     g_i \left(x_i \left(k+1\right)\right) + \nabla_i f\left( x^i \left(k\right) \right)^T\left( x_i \left(k+1\right) - x_i \left(k\right) \right) + \frac{1}{2\eta}\left\| x_i \left(k+1\right) - x_i \left(k\right) \right\|_2^2 \leq g_i \left(z\right) + \nabla_i f\left(x^i \left(k\right)\right)^T\left( z - x_i \left(k\right) \right) + \frac{1}{2\eta}\left\| z - x_i \left(k\right) \right\|_2^2
 \end{dmath}
+
 取$ z=x_i \left(k\right) $，则
 \begin{equation}\label{eq:19}
     g_i \left( x_i \left(k+1\right) \right) - g_i \left( x_i \left(k\right) \right) \leq -\left\{ \nabla_i f\left( x^j \left(k\right) \right)^T \left( x_i \left(k+1\right) - x_i \left(k\right) \right) +\frac{1}{2\eta}\left\| x_i \left(k+1\right) - x_i \left(k\right) \right\|_2^2 \right\}
 \end{equation}
 
 把\ref{eq:17}、\ref{eq:19}带入\ref{eq:16}之中，得
-
 \begin{align}\label{eq:20}
   F\left( x\left(k+1\right) \right) & \leq \, \nabla f\left( x\left(k\right) \right)^T \left( x\left(k+1\right) x\left(k\right) \right) + \frac{L_f}{2} \left\| x\left(k+1\right) - x\left(k\right) \right\|_2^2 \nonumber\\
   & - \, \sum\limits_{i=1}^{n} \left\{ \frac{1}{2\eta} \left\| ( x_i \left(k+1\right) - x_i \left(k\right) \right\|_2^2 +\nabla_i f\left( x^i \left(k\right) \right)^T \left( x_i \left(k+1\right) - x_i \left(k\right) \right) \right\} \nonumber \\
-  & = \, \frac{1}{2}\left(L_f - \frac{1}{\eta}\right)\left\| \left( x\left(k+1\right) - x\left(k\right) \right) \right\|_2^2 + \sum\limits_{i=1}^{n}\left( \nabla_i f\left( x\left(k\right) \right) - \nabla_i f\left(x^i \left(k\right) \right) \right)^T \left( x_i \left(k+1\right)-x_i \left(k\right)  \right) \nonumber \\
-  & \leq \, \frac{1}{2}\left(L_f - \frac{1}{\eta}\right)\left\| \left( x\left(k+1\right) - x\left(k\right) \right) \right\|_2^2 + \sum\limits_{i=1}^{n} \left\| \nabla_i f\left( x\left(k\right) \right) - \nabla_i f\left(x^i \left(k\right) \right) \right\|_2 \left\| x_i \left(k+1\right)-x_i \left(k\right) \right\|_2 \nonumber \\
-  & \leq \, \frac{1}{2}\left(L_f - \frac{1}{\eta}\right)\left\| \left( x\left(k+1\right) - x\left(k\right) \right) \right\|_2^2 + \sum\limits_{i=1}^{n} L_i \left\| x \left(k+1\right)-x \left(k\right) \right\|_2 \left\| x_i \left(k+1\right)-x_i \left(k\right) \right\|_2 \nonumber \\
-  & \leq \, \frac{1}{2}\left(L_f - \frac{1}{\eta}\right)\left\| \left( x\left(k+1\right) - x\left(k\right) \right) \right\|_2^2 + \sum\limits_{i=1}^{n} L_i \left\| x_i \left(k+1\right)-x_i \left(k\right) \right\|_2 \sum_{t = \left(k-1\right)_+}^{k-1} \left\| x\left(t+1\right) - x\left(t\right)\right\|_2 \nonumber\\
-  & \leq \, \frac{1}{2}\left(L_f - \frac{1}{\eta}\right)\left\| \left( x\left(k+1\right) - x\left(k\right) \right) \right\|_2^2 + L \left\| x \left(k+1\right)-x \left(k\right) \right\|_2 \sum_{t = \left(k-1\right)_+}^{k-1} \left\| x\left(t+1\right) - x\left(t\right)\right\|_2 \nonumber\\
-  & \leq \, \frac{1}{2}\left(L_f - \frac{1}{\eta}\right)\left\| \left( x\left(k+1\right) - x\left(k\right) \right) \right\|_2^2 + \frac{L}{2} \sum\limits_{t=\left(k-1\right)}^{k-1}\left( \left\| x \left(k+1\right)-x \left(k\right) \right\|_2 + \left\| x \left(t+1\right)-x \left(t\right) \right\|_2 \right) \nonumber \\
-  & \leq \, \frac{1}{2}\left(L_f - \frac{1}{\eta} + Ls \right)\left\| \left( x\left(k+1\right) - x\left(k\right) \right) \right\|_2^2 + \frac{L}{2} \sum\limits_{t=\left(k-1\right)}^{k-1}\left\| x \left(t+1\right)-x \left(t\right) \right\|_2
+  & = \, \frac{1}{2}\left(L_f - \frac{1}{\eta}\right)\left\| \left( x\left(k+1\right) - x\left(k\right) \right) \right\|_2^2 + \left( \nabla_i f\left( x\left(k\right) \right) - \nabla_i f\left(x^i \left(k\right) \right) \right)^T \left( x_i \left(k+1\right)-x_i \left(k\right)  \right) \nonumber \\
+  & \leq \, \frac{1}{2}\left(L_f - \frac{1}{\eta}\right)\left\| \left( x\left(k+1\right) - x\left(k\right) \right) \right\|_2^2 + \left\| \nabla_i f\left( x\left(k\right) \right) - \nabla_i f\left(x^i \left(k\right) \right) \right\|_2 \left\| x_i \left(k+1\right)-x_i \left(k\right) \right\|_2 \nonumber \\
+  & \leq \, \frac{1}{2}\left(L_f - \frac{1}{\eta}\right)\left\| \left( x\left(k+1\right) - x\left(k\right) \right) \right\|_2^2 + L_f \left\| x \left(k\right)-x^{i} \left(k\right) \right\|_2 \left\| x_i \left(k+1\right)-x_i \left(k\right) \right\|_2 \nonumber \\
+  & \leq \, \frac{1}{2}\left(L_f - \frac{1}{\eta}\right)\left\| \left( x\left(k+1\right) - x\left(k\right) \right) \right\|_2^2 + L_f \left\| x_i \left(k+1\right)-x_i \left(k\right) \right\|_2 \sum_{t = \left(k-s\right)_+}^{k-1} \left\| x\left(t+1\right) - x\left(t\right)\right\|_2 \nonumber\\
+  & \leq \, \frac{1}{2}\left(L_f - \frac{1}{\eta}\right)\left\| \left( x\left(k+1\right) - x\left(k\right) \right) \right\|_2^2 + L_f \left\| x \left(k+1\right)-x \left(k\right) \right\|_2 \sum_{t = \left(k-s\right)_+}^{k-1} \left\| x\left(t+1\right) - x\left(t\right)\right\|_2 \nonumber\\
+  & \leq \, \frac{1}{2}\left(L_f - \frac{1}{\eta}\right)\left\| \left( x\left(k+1\right) - x\left(k\right) \right) \right\|_2^2 + \frac{L_f}{2} \left( \left\| x \left(k+1\right)-x \left(k\right) \right\|_2 +\sum\limits_{t=\left(k-s\right)_{+}}^{k-1} \left\| x \left(t+1\right)-x \left(t\right) \right\|_2 \right) \nonumber \\
+  & \leq \, \frac{1}{2}\left(L_f - \frac{1}{\eta} + {L_f}s \right)\left\| \left( x\left(k+1\right) - x\left(k\right) \right) \right\|_2^2 + \frac{L_f}{2} \sum\limits_{t=\left(k-s\right)_{+}}^{k-1}\left\| x \left(t+1\right)-x \left(t\right) \right\|_2
 \end{align}
-
-对于\ref{eq:20}，从$ k=m_1 $加到$ k=m_2 $，得
-\begin{align}\label{eq:22}
-  F \left(m_1\right)-F\left(m_2\right) &\leq \frac{1}{2}\left(L_f - \frac{1}{\eta}+Ls \right)\sum\limits_{k=m_1}^{m_2} \left\| x\left(k+1\right) - x\left(k\right) \right\|_2^2 + \frac{L}{2}\sum\limits_{k=m_1}^{m_2} \sum_{t=\left( k-s \right)_+ }^{k-1} \left\| x\left(t+1\right) - x\left(t\right) \right\|_2^2 \nonumber \\
-  & \leq \frac{1}{2}\left(L_f - \frac{1}{\eta}+Ls \right)\sum\limits_{k=m_1}^{m_2} \left\| x\left(k+1\right) - x\left(k\right) \right\|_2^2 + \frac{Ls}{2} \sum\limits_{k=m_1}^{m_2} \left\| x\left(k\right) - x\left(k-1\right) \right\|_2^2 \nonumber \\
-  & = \frac{1}{2}\left(L_f - \frac{1}{\eta} + 2Ls \right) \sum\limits_{k=m_1}^{m_2} \left\| x\left(k+1\right)-x\left(k\right) \right\|_2^2
-\end{align}
-
-取$ \displaystyle \eta < \frac{1}{L_f+2Ls} $，则 $ \displaystyle L_f - \frac{1}{\eta} +2Ls <0 $，则
-\begin{equation}\label{eq:22}
-  \sum\limits_{k=m_1}^{m_2} \left\| x\left(k+1\right) - x\left(k\right) \right\|_2^2 \leq \frac{2}{\frac{1}{\eta}-L_f-2Ls}\left( F\left(x\left(m_1\right)\right) - F\left(x\left(m_2\right)\right)\right)
-\end{equation}
 
 改变求和顺序，有不等式:
 \begin{equation}\label{eq:21}
     \sum\limits_{k=m_1}^{m_2} {\sum\limits_{t = \left(k-s\right)_{+}}^{k-1} {\left\| x\left(t+1\right) -  x\left(t\right) \right\|_2^2}} \leq s\sum\limits_{k=m_1}^{m_2}{\left\| x\left(k+1\right) - x\left(k\right)\right\|_2^2}
 \end{equation}
+
 以及
 \begin{align}\label{eq:23}
-  \sum\limits_{k=m_1}^{m_2}{\sum\limits_{t=\left(k-s\right)_{+}}^{k-\delta} {\left\| x\left(t+1\right) - x\left(t\right) \right\|_2^2}} & \leq \left( s+\delta \right) \sum\limits_{k=m_1}^{m_2}{\left\|x\left(k\right) - x\left(k-1\right) \right\|_2^2} \nonumber\\
-   & \leq 2s \sum\limits_{k=m_1}^{m_2}\left\| x\left(k\right) - x\left(k-1\right) \right\|_2^2
+    \sum\limits_{k=m_1}^{m_2}{\sum\limits_{t=\left(k-s-\delta \right)_{+}}^{k-\delta -1} {\left\| x\left(t+1\right) - x\left(t\right) \right\|_2^2}} & \leq s \sum\limits_{k=\left(m_1 - \delta\right)_{+}}^{m_2 -\delta}{\left\|x\left(k+1\right) - x\left(k\right) \right\|_2^2} \nonumber \\
+    & \leq s \sum\limits_{k=\left(m_1 - \delta\right)_{+}}^{m_2} \left\| x\left(k+1\right) - x\left(k\right)\right\|_2^2
 \end{align}
+
+对于\ref{eq:20}，从$ k=m_1 $加到$ k=m_2 $，得
+\begin{align}\label{eq:22}
+  F \left(m_1\right)-F\left(m_2\right) &\leq \frac{1}{2}\left(L_f - \frac{1}{\eta}+{L_f}s \right)\sum\limits_{k=m_1}^{m_2} \left\| x\left(k+1\right) - x\left(k\right) \right\|_2^2 + \frac{L_f}{2}\sum\limits_{k=m_1}^{m_2} \sum_{t=\left( k-s \right)_+ }^{k-1} \left\| x\left(t+1\right) - x\left(t\right) \right\|_2^2 \nonumber \\
+  \left( \ref{eq:21} \right) & \leq \frac{1}{2}\left(L_f - \frac{1}{\eta}+{L_f}s \right)\sum\limits_{k=m_1}^{m_2} \left\| x\left(k+1\right) - x\left(k\right) \right\|_2^2 + \frac{{L_f}s}{2} \sum\limits_{k=m_1}^{m_2} \left\| x\left(k\right) - x\left(k-1\right) \right\|_2^2 \nonumber \\
+  & = \frac{1}{2}\left(L_f - \frac{1}{\eta} + 2{L_f}s \right) \sum\limits_{k=m_1}^{m_2} \left\| x\left(k+1\right)-x\left(k\right) \right\|_2^2
+\end{align}
+
+取$ \displaystyle \eta < \frac{1}{L_f+2{L_f}s} $，则 $ \displaystyle L_f - \frac{1}{\eta} +2{L_f}s <0 $，则
+\begin{equation}\label{eq:22}
+  \sum\limits_{k=m_1}^{m_2} \left\| x\left(k+1\right) - x\left(k\right) \right\|_2^2 \leq \frac{2}{\frac{1}{\eta}-L_f-2{L_f}s}\left( F\left(x\left(m_1\right)\right) - F\left(x\left(m_2\right)\right)\right)
+\end{equation}
 
 \begin{align}\label{eq:24}
   \frac{1}{T} \sum\limits_{k=0}^{T}\left[ M_F\left(x\left(k\right)\right) \right]^2 & = \frac{1}{T}\sum\limits_{k=0}^{T} {\sum\limits_{i=1}^{n} {\left[ M_F \left(x\left(k\right)\right)_i \right]^2}} \nonumber \\
-   & \leq \left(1+\eta L_f\right) \frac{n}{T}\left\{ \sum\limits_{k=0}^{T} {\sum_{t=\left(k-\delta-s\right)_{+}}^{k-\delta-1}}\left\| x\left(t+1\right) - x\left(t\right)\right\|_2 + \sum\limits_{k=0}^{T} {\sum_{t=\left(k-s\right)_{+}}^{k-1}}\left\| x\left(t+1\right) - x\left(t\right)\right\|_2 \right\}\nonumber \\
-   & \leq \frac{3ns}{T} \left(1+\eta L_f\right) \sum\limits_{k=0}^{T}{\left\| x\left(k+1\right) - x\left(k\right) \right\|_2} \nonumber \\
-   & \leq \frac{3ns}{T} \left(1+\eta L_f\right)\frac{2}{\frac{1}{\eta}-L_f-2Ls}\left[ F\left(x\left(0\right)\right) - F\left(x\left(T\right)\right) \right]
+   & \leq \frac{n}{T} \left(1+\eta L_f\right) \left\{ \sum\limits_{k=0}^{T} {\sum_{t=\left(k-\delta-s\right)_{+}}^{k-\delta-1}}\left\| x\left(t+1\right) - x\left(t\right)\right\|_2 + \sum\limits_{k=0}^{T} {\sum_{t=\left(k-s\right)_{+}}^{k-1}}\left\| x\left(t+1\right) - x\left(t\right)\right\|_2 \right\}\nonumber \\
+   \left( \ref{eq:21}\text{、}\ref{eq:23} \right) & \leq \frac{2ns}{T} \left(1+\eta L_f\right) \sum\limits_{k=0}^{T}{\left\| x\left(k+1\right) - x\left(k\right) \right\|_2} \nonumber \\
+   & \leq \frac{4ns \left(1+ \eta L_f \right)}{T \left(\frac{1}{\eta}-L_f -2L_f s\right)} \left[ F\left(x\left(0\right)\right) - F\left( x \left(T\right)\right) \right] \nonumber \\
+   \left( \text{Assumption 4.} \right) & \leq \frac{4ns \left(1+ \eta L_f \right)}{T \left(\frac{1}{\eta}-L_f -2L_f s\right)} \left[ F\left(x\left(0\right)\right) - F^{*} \right]
 \end{align}
 
 \end{document} 
